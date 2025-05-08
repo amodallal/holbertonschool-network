@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Displays listening ports. Includes listening sockets
+# + as the PID and name of the program to which each socket belongs.
 
 echo "Active Internet connections (only servers)"
 ss -tulnp | awk '
