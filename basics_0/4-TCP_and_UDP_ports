@@ -1,4 +1,17 @@
 #!/bin/bash
 
 echo "Active Internet connections (only servers)"
-netstat -tulnp | grep LISTEN
+ss -tulnp | awk '
+BEGIN {
+    printf "%-6s %-7s %-7s %-25s %-25s %-12s %-s\n", "Proto", "Recv-Q", "Send-Q", "Local Address", "Foreign Address", "State", "PID/Program name"
+}
+NR > 1 {
+    proto = $1
+    recvq = $2
+    sendq = $3
+    local = $5
+    remote = $6
+    state = $1 ~ /^tcp/ ? $2 : ""
+    pidprog = $NF
+    printf "%-6s %-7s %-7s %-25s %-25s %-12s %-s\n", proto, recvq, sendq, local, remote, $1 ~ /^tcp/ ? $6 : $1, pidprog
+}'
