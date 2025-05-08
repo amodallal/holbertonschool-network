@@ -2,5 +2,7 @@
 # Displays listening ports. Includes listening sockets
 # + as the PID and name of the program to which each socket belongs.
 
+apt update
+apt install net-tools
 
 netstat -tulnp
